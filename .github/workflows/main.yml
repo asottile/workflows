@@ -1,0 +1,19 @@
+name: main
+
+on:
+  push:
+    branches: [main, test-me-*]
+    tags:
+  pull_request:
+
+jobs:
+  main:
+    uses: ./.github/workflows/tox.yml
+    with:
+      env: '["py37", "py38", "py39", "py310", "py311", "py312", "pypy3"]'
+  main-win:
+    uses: ./.github/workflows/tox.yml
+    with:
+      env: '["py37"]'
+      os: windows-latest
+      arch: '["x64", "x86"]'
