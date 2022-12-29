@@ -1,0 +1,72 @@
+on:
+  workflow_call:
+    inputs:
+      os:
+        required: false
+        type: string
+        default: ubuntu-latest
+      env:
+        required: true
+        type: string
+      arch:
+        required: false
+        type: string
+        default: '["x64"]'
+      wheel-tags:
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  tox:
+    name: ${{ inputs.os }} / ${{ matrix.env }}${{ inputs.arch != '["x64"]' && format(' /  {0}', matrix.arch) || '' }}
+    runs-on: ${{ inputs.os }}
+    strategy:
+      matrix:
+        env: ${{ fromJSON(inputs.env) }}
+        arch: ${{ fromJSON(inputs.arch) }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: |
+          ${{
+            (matrix.env == 'pypy3' || startsWith(matrix.env, 'pypy3-')) && 'pypy3.9' ||
+            (matrix.env == 'py37' || startsWith(matrix.env, 'py37-')) && '3.7' ||
+            (matrix.env == 'py38' || startsWith(matrix.env, 'py38-')) && '3.8' ||
+            (matrix.env == 'py39' || startsWith(matrix.env, 'py39-')) && '3.9' ||
+            (matrix.env == 'py310' || startsWith(matrix.env, 'py310-')) && '3.10' ||
+            '3.11'
+          }}
+        architecture: ${{ matrix.arch }}
+      if: matrix.env != 'py312' && !startsWith(matrix.env, 'py312-')
+    - uses: deadsnakes/action@v2.1.1
+      with:
+        python-version: 3.12-dev
+      if: matrix.env == 'py312' || startsWith(matrix.env, 'py312-')
+    - uses: ./.github/actions/pre-test
+      if: ${{ hashFiles('.github/actions/pre-test/action.yml') != '' }}
+    - run: python -mpip install --upgrade setuptools tox virtualenv
+    - run: tox -e ${{ matrix.env }}
+    - name: build wheels
+      run: |
+        set -x
+
+        if [ '${{ runner.os }}' = 'Windows' ]; then
+          bin='.tox/${{ matrix.env }}/Scripts'
+        else
+          bin='.tox/${{ matrix.env }}/bin'
+        fi
+
+        "$bin/pip" wheel --no-deps --wheel-dir wheels .
+
+        if [ '${{ runner.os }}' = 'macOS' ]; then
+          "$bin/pip" install 'delocate>=0.10.3'
+          "$bin/delocate-wheel" wheels/*.whl
+        fi
+      if: inputs.wheel-tags && github.ref_type == 'tag'
+    - uses: actions/upload-artifact@v3
+      with:
+        name: wheels
+        path: wheels/*.whl
+      if: inputs.wheel-tags && github.ref_type == 'tag'
