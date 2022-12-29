@@ -21,6 +21,7 @@ this job template will install python and invoke tox
 - `arch`: (json list of strings, default: '["x64"]') only used on windows to
   select the python executable
 - `wheel-tags`: (default: `false`) whether to make a `wheels` artifact on tags
+- `submodules`: (default: `false`) passed along to [`actions/checkout`]
 
 this action auto-detects python versions via the env name.  here are some
 examples:
@@ -33,6 +34,7 @@ examples:
 
 [`runs-on`]: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
 [deadsnakes]: https://github.com/deadsnakes/action
+[`actions/checkout`]: https://github.com/actions/checkout
 
 #### example
 

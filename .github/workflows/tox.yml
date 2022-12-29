@@ -16,6 +16,10 @@ on:
         required: false
         type: boolean
         default: false
+      submodules:
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   tox:
@@ -27,6 +31,8 @@ jobs:
         arch: ${{ fromJSON(inputs.arch) }}
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: ${{ inputs.submodules }}
     - uses: actions/setup-python@v4
       with:
         python-version: |
