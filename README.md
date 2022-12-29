@@ -21,7 +21,8 @@ this job template will install python and invoke tox
 - `arch`: (json list of strings, default: '["x64"]') only used on windows to
   select the python executable
 - `wheel-tags`: (default: `false`) whether to make a `wheels` artifact on tags
-- `submodules`: (default: `false`) passed along to [`actions/checkout`]
+- `submodules`: (default: `false`) _new in v1.1.0_ passed along to
+  [`actions/checkout`]
 
 this action auto-detects python versions via the env name.  here are some
 examples:
@@ -41,7 +42,7 @@ examples:
 ```yaml
 jobs:
   main:
-    uses: asottile/workflows/.github/workflows/tox.yml@v1.0.0
+    uses: asottile/workflows/.github/workflows/tox.yml@v1.1.0
     with:
       env: '["py37", "py38", "pypy3"]'
 ```
