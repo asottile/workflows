@@ -10,7 +10,7 @@ reusable github workflows / actions
 
 ### .github/workflows/tox.yml
 
-_new in v0.0.1_
+_new in v1.0.0_
 
 this job template will install python and invoke tox
 
@@ -39,7 +39,7 @@ examples:
 ```yaml
 jobs:
   main:
-    uses: asottile/workflows/.github/workflows/tox.yml@v0.0.1
+    uses: asottile/workflows/.github/workflows/tox.yml@v1.0.0
     with:
       env: '["py37", "py38", "pypy3"]'
 ```
