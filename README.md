@@ -42,7 +42,7 @@ examples:
 ```yaml
 jobs:
   main:
-    uses: asottile/workflows/.github/workflows/tox.yml@v1.1.0
+    uses: asottile/workflows/.github/workflows/tox.yml@v1.2.0
     with:
       env: '["py37", "py38", "pypy3"]'
 ```
@@ -51,11 +51,13 @@ jobs:
 
 ### .github/actions/latest-git
 
+_new in v1.2.0_
+
 install the latest version of `git`
 
 #### example
 
 ```yaml
     steps:
-    - uses: asottile/workflows/.github/actions/latest-git@main
+    - uses: asottile/workflows/.github/actions/latest-git@v1.2.0
 ```
