@@ -1,0 +1,15 @@
+runs:
+  using: composite
+  steps:
+  - name: build git
+    shell: bash
+    run: |
+      set -euxo pipefail
+      sudo apt-get update -q
+      sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+      git clone --depth=1 https://github.com/git/git /tmp/git
+      cd /tmp/git
+      make prefix=/tmp/git NO_GETTEXT=1 NO_TCLTK=1 -j4 install
+      echo /tmp/git/bin >> "$GITHUB_PATH"
+  - run: git --version
+    shell: bash

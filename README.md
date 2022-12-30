@@ -46,3 +46,16 @@ jobs:
     with:
       env: '["py37", "py38", "pypy3"]'
 ```
+
+## actions
+
+### .github/actions/latest-git
+
+install the latest version of `git`
+
+#### example
+
+```yaml
+    steps:
+    - uses: asottile/workflows/.github/actions/latest-git@main
+```
