@@ -21,8 +21,7 @@ runs:
     shell: bash
     run: |
       set -euo pipefail
-      python="$(command -v python3 || command -v python)"
-      "$python" -uS '${{ github.action_path }}/bin/main' \
+      python3 -uS '${{ github.action_path }}/bin/main' \
         --repo "$C_REPO" \
         --ref "$C_REF" \
         --path "$C_PATH" \
