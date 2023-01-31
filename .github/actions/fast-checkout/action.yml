@@ -1,0 +1,39 @@
+name: checkout
+inputs:
+  repository:
+    default: ${{ github.repository }}
+  ref:
+    default: ${{ github.sha }}
+  path:
+    default: '.'
+  token:
+    default: ${{ github.token }}
+  persist-credentials:
+    default: false
+  fetch-depth:
+    default: 1
+  submodules:
+    default: false
+runs:
+  using: composite
+  steps:
+  - name: checkout ${{ inputs.repository }}
+    shell: bash
+    run: |
+      set -euo pipefail
+      python="$(command -v python3 || command -v python)"
+      "$python" -uS '${{ github.action_path }}/bin/main' \
+        --repo "$C_REPO" \
+        --ref "$C_REF" \
+        --path "$C_PATH" \
+        --persist-credentials "$C_PERSIST_CREDENTIALS" \
+        --fetch-depth "$C_FETCH_DEPTH" \
+        --submodules "$C_SUBMODULES"
+    env:
+      C_REPO: ${{ inputs.repository }}
+      C_REF: ${{ inputs.ref }}
+      C_PATH: ${{ inputs.path }}
+      C_TOKEN: ${{ inputs.token }}
+      C_PERSIST_CREDENTIALS: ${{ inputs.persist-credentials }}
+      C_FETCH_DEPTH: ${{ inputs.fetch-depth }}
+      C_SUBMODULES: ${{ inputs.submodules }}

@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import os.path
+import subprocess
+
+
+def _write_git_config(repo: str, remote: str) -> None:
+    git_config = f'''\
+[core]
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
+[remote "origin"]
+    url = {remote}
+    fetch = +refs/heads/*:refs/remotes/origin/*
+'''
+    with open(os.path.join(repo, '.git', 'config'), 'w') as f:
+        f.write(git_config)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--repo', required=True)
+    parser.add_argument('--ref', required=True)
+    parser.add_argument('--path', required=True)
+    parser.add_argument('--persist-credentials', choices=('true', 'false'))
+    parser.add_argument('--fetch-depth', type=int, default=1)
+    parser.add_argument('--submodules', choices=('true', 'false', 'recursive'))
+    args = parser.parse_args()
+
+    token = os.environ.get('GH_TOKEN') or ''
+    remote_no_creds = f'https://github.com/{args.repo}'
+    if token:
+        remote = f'https://x-token:{token}@github.com/{args.repo}'
+    else:
+        remote = remote_no_creds
+
+    if args.fetch_depth == 0:
+        depth: tuple[str, ...] = ()
+    else:
+        depth = (f'--depth={args.fetch_depth}',)
+
+    subprocess.check_call(('git', 'init', '--quiet', args.path))
+    _write_git_config(args.path, remote)
+
+    git = (
+        'git',
+        '-c', 'protocol.version=2',
+        '-c', 'core.askPask=/bin/true',
+        '-C', args.path,
+    )
+    subprocess.check_call((*git, 'fetch', '-q', 'origin', args.ref, *depth))
+    if args.persist_credentials == 'false':
+        _write_git_config(args.path, remote_no_creds)
+    subprocess.check_call((*git, 'checkout', '-q', 'FETCH_HEAD'))
+
+    if args.submodules != 'false':
+        if args.submodules == 'recursive':
+            recurse: tuple[str, ...] = ('--recursive',)
+        else:
+            recurse = ()
+
+        subs = (*git, 'submodule', 'update', '-q', '--init', *depth, *recurse)
+        subprocess.check_call(subs)
+
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())
