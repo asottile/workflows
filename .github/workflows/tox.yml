@@ -30,7 +30,7 @@ jobs:
         env: ${{ fromJSON(inputs.env) }}
         arch: ${{ fromJSON(inputs.arch) }}
     steps:
-    - uses: asottile/workflows/.github/actions/fast-checkout@v1.3.0
+    - uses: asottile/workflows/.github/actions/fast-checkout@no-token-by-default
       with:
         submodules: ${{ inputs.submodules }}
     - uses: actions/setup-python@v4
