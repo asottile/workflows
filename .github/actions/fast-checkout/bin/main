@@ -31,7 +31,7 @@ def main() -> int:
     parser.add_argument('--submodules', choices=('true', 'false', 'recursive'))
     args = parser.parse_args()
 
-    token = os.environ.get('GH_TOKEN') or ''
+    token = os.environ.get('C_TOKEN') or ''
     remote_no_creds = f'https://github.com/{args.repo}'
     if token:
         remote = f'https://x-token:{token}@github.com/{args.repo}'
