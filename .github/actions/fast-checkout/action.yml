@@ -29,10 +29,10 @@ runs:
         --fetch-depth "$C_FETCH_DEPTH" \
         --submodules "$C_SUBMODULES"
     env:
+      GH_TOKEN: ${{ inputs.token }}
       C_REPO: ${{ inputs.repository }}
       C_REF: ${{ inputs.ref }}
       C_PATH: ${{ inputs.path }}
-      C_TOKEN: ${{ inputs.token }}
       C_PERSIST_CREDENTIALS: ${{ inputs.persist-credentials }}
       C_FETCH_DEPTH: ${{ inputs.fetch-depth }}
       C_SUBMODULES: ${{ inputs.submodules }}
