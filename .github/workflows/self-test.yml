@@ -13,7 +13,7 @@ jobs:
         os: [windows-latest, macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-    - uses: asottile/workflows/.github/actions/fast-checkout@v1.3.0
+    - uses: asottile/workflows/.github/actions/fast-checkout@v1.4.1
     - uses: ./.github/actions/fast-checkout
       with:
         path: subdir
