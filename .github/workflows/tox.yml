@@ -70,6 +70,7 @@ jobs:
           "$bin/pip" install 'delocate>=0.10.3'
           "$bin/delocate-wheel" wheels/*.whl
         fi
+      shell: bash
       if: inputs.wheel-tags && github.ref_type == 'tag'
     - uses: actions/upload-artifact@v3
       with:
