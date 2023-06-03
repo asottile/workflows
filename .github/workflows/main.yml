@@ -10,10 +10,10 @@ jobs:
   main:
     uses: ./.github/workflows/tox.yml
     with:
-      env: '["py37", "py38", "py39", "py310", "py311", "py312", "pypy3"]'
+      env: '["py38", "py39", "py310", "py311", "py312", "py313", "pypy3"]'
   main-win:
     uses: ./.github/workflows/tox.yml
     with:
-      env: '["py37"]'
+      env: '["py38"]'
       os: windows-latest
       arch: '["x64", "x86"]'
