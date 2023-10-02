@@ -41,18 +41,14 @@ jobs:
             (matrix.env == 'py38' || startsWith(matrix.env, 'py38-')) && '3.8' ||
             (matrix.env == 'py39' || startsWith(matrix.env, 'py39-')) && '3.9' ||
             (matrix.env == 'py310' || startsWith(matrix.env, 'py310-')) && '3.10' ||
-            '3.11'
+            (matrix.env == 'py311' || startsWith(matrix.env, 'py311-')) && '3.11' ||
+            '3.12'
           }}
         architecture: ${{ matrix.arch }}
       if: |
         ${{
-          matrix.env != 'py312' && !startsWith(matrix.env, 'py312-') &&
           matrix.env != 'py313' && !startsWith(matrix.env, 'py313-')
         }}
-    - uses: deadsnakes/action@v3.0.1
-      with:
-        python-version: 3.12-dev
-      if: matrix.env == 'py312' || startsWith(matrix.env, 'py312-')
     - uses: deadsnakes/action@v3.0.1
       with:
         python-version: 3.13-dev
