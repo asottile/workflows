@@ -18,7 +18,7 @@ this job template will install python and invoke tox
 
 - `env`: (json list of strings) the list of `tox` environment names to run
 - `os`: (default: `ubuntu-latest`) passed through to [`runs-on`]
-- `arch`: (json list of strings, default: '["x64"]') only used on windows to
+- `arch`: (json list of strings, default: '[""]') only used on windows to
   select the python executable
 - `wheel-tags`: (default: `false`) whether to make a `wheels` artifact on tags
 - `submodules`: (default: `false`) _new in v1.1.0_ passed along to
@@ -42,7 +42,7 @@ examples:
 ```yaml
 jobs:
   main:
-    uses: asottile/workflows/.github/workflows/tox.yml@v1.6.0
+    uses: asottile/workflows/.github/workflows/tox.yml@v1.6.1
     with:
       env: '["py310", "py311", "pypy3"]'
 ```
@@ -59,7 +59,7 @@ install the latest version of `git`
 
 ```yaml
     steps:
-    - uses: asottile/workflows/.github/actions/latest-git@v1.6.0
+    - uses: asottile/workflows/.github/actions/latest-git@v1.6.1
 ```
 
 ### .github/actions/fast-checkout
@@ -74,5 +74,5 @@ a replacement for `actions/checkout` that is [way less slow]
 
 ```yaml
     steps:
-    - uses: asottile/workflows/.github/actions/fast-checkout@v1.6.0
+    - uses: asottile/workflows/.github/actions/fast-checkout@v1.6.1
 ```
