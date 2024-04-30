@@ -11,7 +11,7 @@ on:
       arch:
         required: false
         type: string
-        default: '["x64"]'
+        default: '[""]'
       wheel-tags:
         required: false
         type: boolean
@@ -23,7 +23,7 @@ on:
 
 jobs:
   tox:
-    name: ${{ inputs.os }} / ${{ matrix.env }}${{ inputs.arch != '["x64"]' && format(' /  {0}', matrix.arch) || '' }}
+    name: ${{ inputs.os }} / ${{ matrix.env }}${{ inputs.arch != '[""]' && format(' /  {0}', matrix.arch) || '' }}
     runs-on: ${{ inputs.os }}
     strategy:
       matrix:

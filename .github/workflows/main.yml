@@ -17,3 +17,8 @@ jobs:
       env: '["py38"]'
       os: windows-latest
       arch: '["x64", "x86"]'
+  main-mac:
+    uses: ./.github/workflows/tox.yml
+    with:
+      env: '["py38"]'
+      os: macos-latest
