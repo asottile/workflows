@@ -30,8 +30,8 @@ examples:
 - `py310`: will run with python 3.10
 - `py310-wat`: will also run with python 3.10
 - `pypy3`: will run using pypy 3.9
-- `wat`: will run with python 3.12
-- `py313`: will install nightly 3.13 from [deadsnakes] and use that
+- `wat`: will run with python 3.13
+- `py314`: will install nightly 3.14 from [deadsnakes] and use that
 
 [`runs-on`]: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
 [deadsnakes]: https://github.com/deadsnakes/action

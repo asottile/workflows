@@ -37,22 +37,22 @@ jobs:
       with:
         python-version: |
           ${{
-            (matrix.env == 'pypy3' || startsWith(matrix.env, 'pypy3-')) && 'pypy3.9' ||
-            (matrix.env == 'py38' || startsWith(matrix.env, 'py38-')) && '3.8' ||
+            (matrix.env == 'pypy3' || startsWith(matrix.env, 'pypy3-')) && 'pypy3.10' ||
             (matrix.env == 'py39' || startsWith(matrix.env, 'py39-')) && '3.9' ||
             (matrix.env == 'py310' || startsWith(matrix.env, 'py310-')) && '3.10' ||
             (matrix.env == 'py311' || startsWith(matrix.env, 'py311-')) && '3.11' ||
-            '3.12'
+            (matrix.env == 'py312' || startsWith(matrix.env, 'py312-')) && '3.12' ||
+            '3.13'
           }}
         architecture: ${{ matrix.arch }}
       if: |
         ${{
-          matrix.env != 'py313' && !startsWith(matrix.env, 'py313-')
+          matrix.env != 'py314' && !startsWith(matrix.env, 'py314-')
         }}
     - uses: deadsnakes/action@v3.0.1
       with:
-        python-version: 3.13-dev
-      if: matrix.env == 'py313' || startsWith(matrix.env, 'py313-')
+        python-version: 3.14-dev
+      if: matrix.env == 'py314' || startsWith(matrix.env, 'py314-')
     - uses: ./.github/actions/pre-test
       if: ${{ hashFiles('.github/actions/pre-test/action.yml') != '' }}
     - run: python -mpip install --upgrade setuptools tox virtualenv
