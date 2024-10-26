@@ -75,8 +75,23 @@ jobs:
         fi
       shell: bash
       if: inputs.wheel-tags && github.ref_type == 'tag'
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
-        name: wheels
+        name: wheels-${{ inputs.os }}-${{ matrix.env }}-${{ matrix.arch }}
         path: wheels/*.whl
+      if: inputs.wheel-tags && github.ref_type == 'tag'
+
+  collector:
+    needs: [tox]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+    - name: check for failures
+      if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+      run: echo 'dependent job failed' && exit 1
+    - uses: actions/upload-artifact/merge@v4
+      with:
+        name: wheels-${{ inputs.os }}
+        pattern: wheels-${{ inputs.os }}-*
+        delete-merged: true
       if: inputs.wheel-tags && github.ref_type == 'tag'
