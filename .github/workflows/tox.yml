@@ -67,6 +67,17 @@ jobs:
           bin='.tox/${{ matrix.env }}/bin'
         fi
 
+        # disable universal2 wheels
+        if [ '${{ runner.os }}' = 'macOS' ]; then
+          if [ '${{ runner.arch }}' == 'ARM64' ]; then
+            export _PYTHON_HOST_PLATFORM='macosx-11.0-arm64'
+            export ARCHFLAGS=""
+          else
+            export _PYTHON_HOST_PLATFORM='macosx-10.9-x86_64'
+            export ARCHFLAGS=""
+          fi
+        fi
+
         "$bin/pip" wheel --no-deps --wheel-dir wheels .
 
         if [ '${{ runner.os }}' = 'macOS' ]; then
