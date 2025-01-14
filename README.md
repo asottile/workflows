@@ -22,7 +22,7 @@ this job template will install python and invoke tox
   select the python executable
 - `wheel-tags`: (default: `false`) whether to make a `wheels` artifact on tags
 - `submodules`: (default: `false`) _new in v1.1.0_ passed along to
-  [`actions/checkout`]
+  [`actions/fast-checkout`] (note: was passed to [`actions/checkout`] before v1.4.0)
 
 this action auto-detects python versions via the env name.  here are some
 examples:
@@ -36,6 +36,7 @@ examples:
 [`runs-on`]: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
 [deadsnakes]: https://github.com/deadsnakes/action
 [`actions/checkout`]: https://github.com/actions/checkout
+[`actions/fast-checkout`]: https://github.com/asottile/workflows#githubactionsfast-checkout
 
 #### example
 
