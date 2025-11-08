@@ -43,7 +43,7 @@ examples:
 ```yaml
 jobs:
   main:
-    uses: asottile/workflows/.github/workflows/tox.yml@v1.9.0
+    uses: asottile/workflows/.github/workflows/tox.yml@v1.10.0
     with:
       env: '["py310", "py311", "pypy3"]'
 ```
@@ -60,7 +60,7 @@ install the latest version of `git`
 
 ```yaml
     steps:
-    - uses: asottile/workflows/.github/actions/latest-git@v1.9.0
+    - uses: asottile/workflows/.github/actions/latest-git@v1.10.0
 ```
 
 ### .github/actions/fast-checkout
@@ -75,5 +75,5 @@ a replacement for `actions/checkout` that is [way less slow]
 
 ```yaml
     steps:
-    - uses: asottile/workflows/.github/actions/fast-checkout@v1.9.0
+    - uses: asottile/workflows/.github/actions/fast-checkout@v1.10.0
 ```
