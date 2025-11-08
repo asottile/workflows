@@ -55,7 +55,7 @@ jobs:
       if: matrix.env == 'py315' || startsWith(matrix.env, 'py315-')
     - uses: ./.github/actions/pre-test
       if: ${{ hashFiles('.github/actions/pre-test/action.yml') != '' }}
-    - run: python -mpip install --upgrade setuptools tox virtualenv
+    - run: python -mpip install tox
     - run: tox -e ${{ matrix.env }}
     - name: build wheels
       run: |
