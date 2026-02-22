@@ -95,7 +95,7 @@ jobs:
   collector:
     needs: [tox]
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
     - name: check for failures
       if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
