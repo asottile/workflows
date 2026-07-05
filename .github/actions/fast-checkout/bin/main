@@ -49,7 +49,7 @@ def main() -> int:
     git = (
         'git',
         '-c', 'protocol.version=2',
-        '-c', 'core.askPask=/bin/true',
+        '-c', 'core.askPass=/bin/true',
         '-C', args.path,
     )
     subprocess.check_call((*git, 'fetch', '-q', 'origin', args.ref, *depth))
