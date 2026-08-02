@@ -33,7 +33,7 @@ jobs:
     - uses: asottile/workflows/.github/actions/fast-checkout@v1.11.1
       with:
         submodules: ${{ inputs.submodules }}
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-python@v6
       with:
         python-version: |
           ${{
@@ -86,7 +86,7 @@ jobs:
         fi
       shell: bash
       if: inputs.wheel-tags && github.ref_type == 'tag'
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v6
       with:
         name: wheels-${{ inputs.os }}-${{ matrix.env }}-${{ matrix.arch }}
         path: wheels/*.whl
