@@ -38,21 +38,21 @@ jobs:
         python-version: |
           ${{
             (matrix.env == 'pypy3' || startsWith(matrix.env, 'pypy3-')) && 'pypy3.11' ||
-            (matrix.env == 'py310' || startsWith(matrix.env, 'py310-')) && '3.10' ||
             (matrix.env == 'py311' || startsWith(matrix.env, 'py311-')) && '3.11' ||
             (matrix.env == 'py312' || startsWith(matrix.env, 'py312-')) && '3.12' ||
             (matrix.env == 'py313' || startsWith(matrix.env, 'py313-')) && '3.13' ||
-            '3.14'
+            (matrix.env == 'py314' || startsWith(matrix.env, 'py314-')) && '3.14' ||
+            '3.15'
           }}
         architecture: ${{ matrix.arch }}
       if: |
         ${{
-          matrix.env != 'py315' && !startsWith(matrix.env, 'py315-')
+          matrix.env != 'py316' && !startsWith(matrix.env, 'py316-')
         }}
     - uses: deadsnakes/action@v3.0.1
       with:
-        python-version: 3.15-dev
-      if: matrix.env == 'py315' || startsWith(matrix.env, 'py315-')
+        python-version: 3.16-dev
+      if: matrix.env == 'py316' || startsWith(matrix.env, 'py316-')
     - uses: ./.github/actions/pre-test
       if: ${{ hashFiles('.github/actions/pre-test/action.yml') != '' }}
     - run: python -mpip install tox
